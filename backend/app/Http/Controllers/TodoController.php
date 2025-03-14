@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTodoRequest;
+use App\Http\Requests\TodoFormRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Requests\DeleteTodoRequest;
 use App\Models\Todo;
@@ -33,6 +34,11 @@ class TodoController extends Controller
         }
 
         return response()->json($builder->paginate(self::$PaginationCount), 200);
+    }
+
+    public function details(TodoFormRequest $request): JsonResponse
+    {
+        return response()->json(Todo::find($request->route('id'))->first(), 200);
     }
 
     public function create(CreateTodoRequest $request): JsonResponse

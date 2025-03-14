@@ -4,11 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Todo;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
-use function PHPUnit\Framework\assertFalse;
 
 class TodoControllerTest extends TestCase
 {
@@ -96,6 +94,16 @@ class TodoControllerTest extends TestCase
                 ->etc()
         );
     }
+
+    public function test_get_one(): void
+    {
+        $todo = Todo::latest()->first();
+
+        $response = $this->getJson("/api/todos/$todo->id");
+
+        $response->assertStatus(200);
+    }
+
 
     public function test_create_todo(): void
     {

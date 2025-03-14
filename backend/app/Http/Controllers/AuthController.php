@@ -26,11 +26,14 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('auth', expiresAt: now()->addHours(6));
+        $remainingTime = now()->addHours(6);
+
+        $token = $user->createToken('auth', expiresAt: $remainingTime);
 
         return response()->json([
             'message' => 'Usuário autenticado com sucesso',
             'user' => $user->only('name', 'email'),
+            'remaining_time' => $remainingTime,
             'token' => $token->plainTextToken,
         ], 200);
     }
@@ -60,7 +63,7 @@ class AuthController extends Controller
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
-        
+
         return response()->json([
             'message' => 'Logout feito com sucesso'
         ], 200);
