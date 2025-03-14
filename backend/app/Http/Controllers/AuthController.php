@@ -48,12 +48,6 @@ class AuthController extends Controller
                 'message' => 'Usuário criado com sucesso'
             ], 200);
 
-        } catch (UniqueConstraintViolationException $e) {
-            Log::error($e->getMessage());
-
-            return response()->json([
-                'error' => 'Um usuário com este email já existe'
-            ], 400);
         } catch (Exception $e) {
             Log::error($e->getMessage());
 

@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     private array $credentials = [
         'email' => 'test@mail.com',
         'password' => 'Test1234',
@@ -84,20 +81,6 @@ class AuthControllerTest extends TestCase
         );
 
         $this->test_login_valid();
-    }
-
-    public function test_register_invalid_unique_constraint(): void
-    {
-        $creds = [
-            'name' => 'Test',
-            'email' => $this->credentials['email'],
-            'password' => 'Test1234',
-            'password_confirmation' => 'Test1234',
-        ];
-
-        $response = $this->post('/api/auth/register', $creds);
-
-        $response->assertStatus(400);
     }
 
     public function test_register_invalid_form(): void
