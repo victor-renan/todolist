@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Geist';
+  src: url('../fonts/geist.ttf');
+}
+
+@theme {
+  --font-sans: 'Geist', sans-serif;
+}
+
+.form-control {
+  @apply bg-gray-100 px-3 py-2 w-full rounded outline-1 -outline-offset-1 outline-gray-300 focus-within:bg-gray-300 transition;
+}
+
+.form-label {
+  @apply text-sm font-semibold;
+}
+
+.btn {
+  @apply transition flex items-center justify-center cursor-pointer p-1.5 px-4 rounded font-semibold bg-blue-500 hover:bg-blue-400 text-white;
+}
+
+.link {
+  @apply text-blue-500 hover:text-blue-600;
+}
+
+.notification {
+  @apply p-4 mx-4 mb-4 rounded-xl bg-blue-400;
+
+  &.success {
+    @apply bg-green-200;
+  }
+
+  &.warn {
+    @apply bg-amber-200;
+  }
+
+  &.error {
+    @apply bg-red-200;
+  }
+}
