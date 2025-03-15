@@ -24,18 +24,23 @@ export interface RegisterForm {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(storageGet())
+  const user = ref<User | null>(getUser())
 
   const router = useRouter()
   const loader = useLoader()
 
-  function storageGet(): User | null {
+  function getUser(): User | null {
     const mUser = localStorage.getItem('user')
     return mUser ? (JSON.parse(mUser) as User) : null
   }
 
-  function storageSet(user: User) {
+  function setUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
+  }
+
+  function removeUser() {
+    user.value = null
+    localStorage.removeItem('user')
   }
 
   function persistToken(token: string) {
@@ -51,7 +56,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await ApiService.instance().post('/auth/login', creds)
       user.value = response.data.user
-      storageSet(response.data.user as User)
+      setUser(response.data.user as User)
       persistToken(response.data.token)
       ApiService.notifySuccess(response)
       router.replace({ name: 'home' })
@@ -77,6 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
     loader.show()
     const response = await ApiService.withAuth().post('/auth/logout')
     deleteToken()
+    removeUser()
     ApiService.notifySuccess(response)
     router.replace({ name: 'login' })
     loader.hide()

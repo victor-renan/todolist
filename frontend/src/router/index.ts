@@ -1,3 +1,5 @@
+import { useAuthStore } from '@/stores/auth'
+import { notify } from '@kyvg/vue3-notification'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -43,7 +45,20 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  
+  const auth = useAuthStore()
+
+  if (to.meta.auth && !auth.validate()) {
+    notify({
+      title: 'Autorização expirada',
+      text: 'Faça login novamente',
+      type: 'warn',
+    })
+    return { name: 'login' }
+  }
+
+  if (!to.meta.auth && auth.validate()) {
+    return { name: 'home' }
+  }
 })
 
 export default router

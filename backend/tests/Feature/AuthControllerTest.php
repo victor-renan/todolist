@@ -35,8 +35,8 @@ class AuthControllerTest extends TestCase
         $response->assertJsonStructure([
             'message',
             'token',
-            'remaining_time',
             'user' => [
+                'remaining_time',
                 'name',
                 'email'
             ],

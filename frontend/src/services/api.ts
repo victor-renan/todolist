@@ -18,6 +18,20 @@ export const ApiService = {
   },
   withAuth() {
     instance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('access_token')}`
+    instance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        return response
+      },
+      (error: AxiosError) => {
+        if (error.status === 401) {
+          notify({
+            title: 'Aviso',
+            text: 'Faça login novamente',
+            type: 'warn',
+          })
+        }
+      },
+    )
     return instance
   },
   notifySuccess(res: AxiosResponse) {

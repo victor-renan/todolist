@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\{LoginRequest, RegisterRequest};
-use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use DB;
@@ -32,9 +31,10 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Usuário autenticado com sucesso',
-            'user' => $user->only('name', 'email'),
-            'remaining_time' => $remainingTime,
             'token' => $token->plainTextToken,
+            'user' => array_merge($user->only('name', 'email'), [
+                'remaining_time' => $remainingTime,
+            ]),
         ], 200);
     }
 
