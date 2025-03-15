@@ -28,6 +28,9 @@ class RegisterRequest extends FormRequest
             'email.unique' => 'Um usuário com este email já existe',
             'password.required' => 'Digite uma senha',
             'password.confirmed' => 'A senha de confirmação difere',
+            'password.min' => 'A senha precisa ter ao menos 8 caracteres',
+            'password.letters' => 'A senha precisa ter ao menos 1 letra',
+            'password.numbers' => 'A senha precisa ter ao menos 1 número',
         ];
     }
 }

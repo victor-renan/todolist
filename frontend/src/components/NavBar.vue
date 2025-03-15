@@ -43,7 +43,7 @@ const user = authStore.user
           <MenuItem>
             <button
               @click="authStore.logout"
-              class="bg-red-400 hover:bg-red-500 py-1 text-sm rounded w-full transition cursor-pointer flex items-center gap-1 justify-center"
+              class="bg-black hover:bg-gray-800 text-white py-1 text-sm rounded w-full transition cursor-pointer flex items-center gap-1 justify-center"
             >
               <i class="bx bx-log-out-circle"></i>
               Logout

@@ -49,10 +49,12 @@ export const ApiService = {
 
     if (data?.errors) {
       Object.values(data.errors).forEach((item) => {
-        notify({
-          title: 'Dados Inválidos',
-          text: item,
-          type: 'warn',
+        item.forEach((err: string) => {
+          notify({
+            title: 'Dados Inválidos',
+            text: err,
+            type: 'warn',
+          })
         })
       })
       return
