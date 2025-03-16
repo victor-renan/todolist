@@ -75,4 +75,28 @@ export const ApiService = {
       throw err
     }
   },
+  async create<T = any>(route: string, data: any) {
+    try {
+      return await this.instance().put<T>(route, data)
+    } catch (err: any) {
+      notifyErrorAdapter(err)
+      throw err
+    }
+  },
+  async update<T = any>(route: string, data: any) {
+    try {
+      return await this.instance().patch<T>(`${route}/${data.id}`, data)
+    } catch (err: any) {
+      notifyErrorAdapter(err)
+      throw err
+    }
+  },
+  async delete<T = any>(route: string, id: number) {
+    try {
+      return await this.instance().delete<T>(`${route}/${id}`)
+    } catch (err: any) {
+      notifyErrorAdapter(err)
+      throw err
+    }
+  },
 }

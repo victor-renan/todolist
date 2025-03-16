@@ -15,7 +15,7 @@ use Log;
 
 class TodoController extends Controller
 {
-    public static int $PaginationCount = 15;
+    public static int $PaginationCount = 10;
 
     public function list(Request $request): JsonResponse
     {
@@ -38,7 +38,7 @@ class TodoController extends Controller
 
     public function details(TodoFormRequest $request): JsonResponse
     {
-        return response()->json(Todo::find($request->route('id'))->first(), 200);
+        return response()->json(Todo::find($request->route('id')), 200);
     }
 
     public function create(CreateTodoRequest $request): JsonResponse
@@ -73,7 +73,7 @@ class TodoController extends Controller
         $validated = $request->validated();
 
         try {
-            $todo = Todo::find($request->route('id'))->first();
+            $todo = Todo::find($request->route('id'));
 
             DB::transaction(function () use ($todo, $validated) {
                 $todo->update($validated);

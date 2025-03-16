@@ -97,10 +97,11 @@ class TodoControllerTest extends TestCase
 
     public function test_get_one(): void
     {
-        $todo = Todo::latest()->first();
+        $todo = Todo::factory()->create();
 
         $response = $this->getJson("/api/todos/$todo->id");
-
+        echo $todo->id;
+        $this->assertEquals($todo->id, $response->json()['id']);
         $response->assertStatus(200);
     }
 
@@ -113,6 +114,8 @@ class TodoControllerTest extends TestCase
             'title' => 'My Todo',
             'description' => 'Lorem ipsum dolor sit',
         ]);
+
+        $this->assertDatabaseCount(Todo::class, 1);
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -136,12 +139,14 @@ class TodoControllerTest extends TestCase
             'title' => 'My Todo',
         ]);
 
+        $this->assertDatabaseCount(Todo::class, 0);
+
         $response->assertStatus(422);
     }
 
     public function test_update_todo(): void
     {
-        $todo = Todo::latest()->first();
+        $todo = Todo::factory()->create();
 
         $data = [
             'is_done' => true,
@@ -150,6 +155,8 @@ class TodoControllerTest extends TestCase
         ];
 
         $response = $this->patchJson("/api/todos/$todo->id", $data);
+
+        $this->assertEquals($todo->id, $response->json()['data']['id']);
 
         $response->assertStatus(200);
         $response->assertJson(
@@ -178,13 +185,11 @@ class TodoControllerTest extends TestCase
 
     public function test_delete_todo(): void
     {
-        Todo::query()->delete();
-
         $todo = Todo::factory()->create();
 
         $response = $this->deleteJson("/api/todos/$todo->id");
         $response->assertStatus(200);
 
-        $this->assertFalse($todo->exists());
+        $this->assertNull(Todo::find($todo->id));
     }
 }

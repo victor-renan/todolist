@@ -11,7 +11,7 @@ class TodoFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $todo = Todo::find($this->id);
+        $todo = Todo::find($this->route('id'));
         return $todo && $todo->user_id === $this->user()->id;
     }
 }

@@ -29,7 +29,7 @@ const user = authStore.user
           </div>
         </template>
         <template #items>
-          <MenuItem disabled>
+          <MenuItem class="p-1" disabled>
             <div class="flex items-center gap-2 transition rounded-xl mb-2">
               <div class="bg-gray-200 w-11 h-11 rounded-full flex items-center justify-center">
                 <i class="bx bx-user text-xl"></i>
