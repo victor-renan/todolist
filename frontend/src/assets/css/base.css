@@ -21,6 +21,10 @@
   @apply transition flex items-center justify-center cursor-pointer p-1.5 px-4 rounded font-semibold bg-blue-500 hover:bg-blue-400 text-white;
 }
 
+.btn-sm {
+  @apply transition flex items-center cursor-pointer disabled:cursor-default px-2 rounded font-semibold text-sm;
+}
+
 .link {
   @apply text-blue-500 hover:text-blue-600;
 }
@@ -38,5 +42,18 @@
 
   &.error {
     @apply bg-red-200;
+  }
+}
+
+.table {
+  @apply table-auto w-full;
+  th {
+    @apply font-semibold;
+  }
+  td, th {
+    @apply px-3 py-1.5 text-left;
+  }
+  th {
+    @apply bg-gray-200;
   }
 }

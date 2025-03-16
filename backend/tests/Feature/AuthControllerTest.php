@@ -107,4 +107,18 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_validate(): void
+    {
+        Sanctum::actingAs($this->user);
+
+        $response = $this->postJson('/api/auth/validate');
+        $response->assertStatus(200);
+    }
+
+    public function test_validate_invalid(): void
+    {
+        $response = $this->postJson('/api/auth/validate');
+        $response->assertStatus(401);
+    }
 }

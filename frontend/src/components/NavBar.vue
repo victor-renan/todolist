@@ -11,9 +11,9 @@ const user = authStore.user
 
 <template>
   <nav
-    class="bg-white fixed left-0 top-0 w-full h-20 flex items-center justify-center px-4 border-b-1 border-gray-200"
+    class="bg-white fixed left-0 top-0 w-full h-20 flex items-center justify-center px-4 border-b-1 border-gray-200 border-dashed z-20"
   >
-    <div class="max-w-4xl w-full flex justify-between">
+    <div class="max-w-5xl w-full flex justify-between">
       <RouterLink class="w-fit flex items-center gap-1" :to="{ name: 'home' }">
         <img class="w-10 object-cover" :src="logo" alt="Logo" />
         <h1 class="text-lg font-bold">Tasklist</h1>

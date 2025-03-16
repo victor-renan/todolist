@@ -26,7 +26,7 @@ const props = withDefaults(
         leave-to-class="transform opacity-0"
       >
         <MenuItems
-          class="bg-white border right-0 border-gray-100 absolute mt-2 p-2 rounded-lg overflow-hidden"
+          class="bg-white border right-0 z-20 border-gray-100 absolute mt-2 p-1 rounded-lg overflow-hidden"
           :class="props.menuClass"
         >
           <slot name="items"></slot>

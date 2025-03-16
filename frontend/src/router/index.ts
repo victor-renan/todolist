@@ -45,9 +45,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  const auth = useAuthStore()
+  const validate = await useAuthStore().validate()
 
-  if (to.meta.auth && !auth.validate()) {
+  if (to.meta.auth && !validate) {
     notify({
       title: 'Autorização expirada',
       text: 'Faça login novamente',
@@ -56,7 +56,7 @@ router.beforeEach(async (to, from) => {
     return { name: 'login' }
   }
 
-  if (!to.meta.auth && auth.validate()) {
+if (!to.meta.auth && validate) {
     return { name: 'home' }
   }
 })

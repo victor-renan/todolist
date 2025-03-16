@@ -68,4 +68,11 @@ class AuthController extends Controller
             'message' => 'Logout feito com sucesso'
         ], 200);
     }
+
+    public function validate(Request $request): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Token válido'
+        ], 200);
+    }
 }

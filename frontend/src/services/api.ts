@@ -1,10 +1,44 @@
+import { useLoader } from '@/stores/loader'
 import { notify } from '@kyvg/vue3-notification'
-import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
+import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 interface ApiError {
   errors?: object
   message?: string
+}
+
+export function notifyErrorAdapter(err: AxiosError) {
+  const data = err.response?.data as ApiError
+  const status = err.status || 500
+
+  if (data?.errors) {
+    return Object.values(data.errors).forEach((item) => {
+      item.forEach((err: string) => {
+        notify({
+          title: 'Dados Inválidos',
+          text: err,
+          type: 'warn',
+        })
+      })
+    })
+  }
+
+  notify({
+    title: status < 500 ? 'Atenção' : 'Erro',
+    text: data?.message ?? 'Servidor indisponível',
+    type: status < 500 ? 'warn' : 'error',
+  })
+}
+
+export function notifySuccessAdapter(response: AxiosResponse) {
+  if (response.data.message) {
+    notify({
+      title: 'Sucesso',
+      text: response.data.message,
+      type: 'success',
+    })
+  }
 }
 
 const instance = axios.create({
@@ -12,58 +46,33 @@ const instance = axios.create({
   timeout: 5000,
 })
 
+instance.interceptors.request.use((config) => {
+  useLoader().show()
+  return config
+})
+
+instance.interceptors.response.use(
+  (response) => {
+    useLoader().hide()
+    return response
+  },
+  (err) => {
+    useLoader().hide()
+    return Promise.reject(err)
+  },
+)
+
 export const ApiService = {
   instance(): AxiosInstance {
-    return instance
-  },
-  withAuth() {
     instance.defaults.headers.common.Authorization = `Bearer ${Cookies.get('access_token')}`
-    instance.interceptors.response.use(
-      (response: AxiosResponse) => {
-        return response
-      },
-      (error: AxiosError) => {
-        if (error.status === 401) {
-          notify({
-            title: 'Aviso',
-            text: 'Faça login novamente',
-            type: 'warn',
-          })
-        }
-      },
-    )
     return instance
   },
-  notifySuccess(res: AxiosResponse) {
-    if (res.data.message) {
-      notify({
-        title: 'Sucesso',
-        text: res.data.message,
-        type: 'success',
-      })
+  async query<T = any>(route: string, params: any) {
+    try {
+      return await this.instance().get<T>(route, { params })
+    } catch (err: any) {
+      notifyErrorAdapter(err)
+      throw err
     }
-  },
-  notifyError(err: AxiosError) {
-    const data = err.response?.data as ApiError
-    const status = err.status || 500
-
-    if (data?.errors) {
-      Object.values(data.errors).forEach((item) => {
-        item.forEach((err: string) => {
-          notify({
-            title: 'Dados Inválidos',
-            text: err,
-            type: 'warn',
-          })
-        })
-      })
-      return
-    }
-
-    notify({
-      title: status < 500 ? 'Atenção' : 'Erro',
-      text: data?.message ?? 'Servidor indisponível',
-      type: status < 500 ? 'warn' : 'error',
-    })
   },
 }
