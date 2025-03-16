@@ -169,9 +169,9 @@ onMounted(() => {
         <table v-if="todos.length > 0" class="table z-0 bg-gray-100">
           <thead>
             <tr>
-              <th class="text-sm sm:text-md">Título</th>
-              <th class="hidden sm:block sm:text-md">Descrição</th>
-              <th class="text-sm sm:text-md">Status</th>
+              <th class="text-sm">Título</th>
+              <th class="hidden sm:block sm:text-sm">Descrição</th>
+              <th class="text-sm">Status</th>
               <th></th>
             </tr>
           </thead>
