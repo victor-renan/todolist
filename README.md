@@ -19,7 +19,7 @@ Entre na pasta `/backend` e copie o conteúdo do arquivo `.env.example` para um 
 
 ```bash
 cd backend
-cp .env.example >> .env
+cp .env.example .env
 ```
 
 Crie um banco de dados no **MySQL** e coloque suas credenciais de usuário, nome do banco, host e porta no arquivo `.env`.
@@ -66,7 +66,7 @@ Semelhantemente, é necessário entrar na pasta `/frontend` e copiar a `.env.exa
 
 ```bash
 cd ../frontend
-cp .env.example >> .env
+cp .env.example .env
 ```
 
 Copie o link da API gerado no comando `artisan serve` e cole na variável `VITE_API_URL` passando o endpoint `/api`, como feito a seguir:
