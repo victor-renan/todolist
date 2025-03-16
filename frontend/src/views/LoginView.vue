@@ -3,10 +3,7 @@ import logo from '@/assets/img/logo.png'
 import { useAuthStore, type LoginForm } from '@/stores/auth'
 import { ref } from 'vue'
 
-const form = ref<LoginForm>({
-  email: 'test@example.com',
-  password: 'Test1234',
-} as LoginForm)
+const form = ref<LoginForm>({} as LoginForm)
 </script>
 
 <template>
