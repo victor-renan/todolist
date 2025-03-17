@@ -113,6 +113,7 @@ Isso gerará um conjunto de tarefas para o usuário recém-criado.
 Clone este repositório, e rode o seguinte comando para criar os arquivos `.env` na pasta `/frontend` e `/backend`:
 
 ```bash
+git clone https://github.com/victor-renan/todolist && cd todolist
 cp frontend/.env.example frontend/.env
 cp backend/.env.example backend/.env
 ```
