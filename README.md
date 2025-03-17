@@ -118,14 +118,18 @@ cp frontend/.env.example frontend/.env
 cp backend/.env.example backend/.env
 ```
 
-Em seguida, abra um novo terminal e execute o docker-compose na pasta `/backend`:
+Em seguida, abra um novo terminal e execute o docker-compose na pasta `/backend`. Adicionalmente execute os comandos para as migrations e geração de chave criptográfica:
 
 ```bash
 cd backend && sudo docker-compose up -d
+sudo docker exec -it php-fpm php artisan migrate
+sudo docker exec -it php-fpm php artisan key:generate
 ```
 
 De mesmo modo, abra outro terminal e execute o docker-compose na pasta `/frontend`:
 
 ```bash
-cd frontend && sudo docker-compose up -d
+cd frontend && sudo docker-compose up -d --build
 ```
+
+Depois basta abrir o link http://localhost:5555/ em seu navegador de preferência.
