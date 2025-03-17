@@ -1,0 +1,21 @@
+version: '2'
+services:
+  frankenphp:
+    build:
+      context: .
+    entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
+    ports:
+      - "8888:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    restart: always
+    ports:
+      - "3333:3306"
+    environment:
+      MYSQL_DATABASE: 'todolist'
+      MYSQL_ROOT_PASSWORD: 'pass'

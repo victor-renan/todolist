@@ -107,3 +107,24 @@ php artisan db:seed
 ```
 
 Isso gerará um conjunto de tarefas para o usuário recém-criado.
+
+## Executando com Docker
+
+Clone este repositório, e rode o seguinte comando para criar os arquivos `.env` na pasta `/frontend` e `/backend`:
+
+```bash
+cp frontend/.env.example frontend/.env
+cp backend/.env.example backend/.env
+```
+
+Em seguida, abra um novo terminal e execute o docker-compose na pasta `/backend`:
+
+```bash
+cd backend && sudo docker-compose up -d
+```
+
+De mesmo modo, abra outro terminal e execute o docker-compose na pasta `/frontend`:
+
+```bash
+cd frontend && sudo docker-compose up -d
+```
