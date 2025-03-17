@@ -2,6 +2,13 @@
 
 Sistema para gerenciamento de tarefas com Laravel e Vue.js
 
+### Sumário
+
+1. [Requerimentos](#requerimentos)
+2. [Executando Localmente](#executando-localmente)
+3. [Executando com Docker](#executando-com-docker)
+
+
 ### Requerimentos
 
 #### Versões
