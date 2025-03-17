@@ -64,7 +64,7 @@ DB_PASSWORD=<senha>
 Agora, execute o composer para instalar as dependências do projeto:
 
 ```bash
-composer update
+composer install
 ```
 
 Em seguida, é necessário executar as migrações do Laravel no banco configurado. Para isso, execute o seguinte comando:
@@ -129,6 +129,7 @@ Em seguida, abra um novo terminal e execute o docker-compose na pasta `/backend`
 
 ```bash
 cd backend && sudo docker-compose up -d
+sudo docker exec -it php-fpm composer install
 sudo docker exec -it php-fpm php artisan migrate
 sudo docker exec -it php-fpm php artisan key:generate
 ```
