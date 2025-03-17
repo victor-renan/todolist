@@ -18,7 +18,7 @@ class TodoFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->unique()->name(),
+            'title' => fake()->name(),
             'description' => fake()->text(),
             'is_done' => false,
             'user_id' => User::latest()->first(),

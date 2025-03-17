@@ -139,7 +139,7 @@ onMounted(() => {
             <span class="font-bold">{{ rest.total }}</span>
             Tarefa{{ rest.total > 1 ? 's' : '' }}
           </h1>
-          <div class="flex gap-1 overflow-scroll">
+          <div class="flex gap-1">
             <button
               class="btn-sm p-0 disabled:text-gray-300"
               :disabled="!rest.prev_page_url"
@@ -158,7 +158,7 @@ onMounted(() => {
             </template>
 
             <button
-              class="btn-sm disabled:text-gray-300"
+              class="btn-sm p-0 disabled:text-gray-300"
               :disabled="!rest.next_page_url"
               @click="() => rest.next_page_url && getTodos(rest.next_page_url)"
             >
@@ -177,7 +177,7 @@ onMounted(() => {
           </thead>
           <tbody>
             <tr
-              class="text-xs text-wrap sm:text-sm border-b-1 border-gray-300"
+              class="text-xs text-wrap sm:text-sm border-b-1 border-gray-200 last:border-0"
               v-for="todo in todos"
             >
               <td class="font-medium sm:text-nowrap">{{ todo.title }}</td>

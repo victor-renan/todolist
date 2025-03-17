@@ -16,7 +16,7 @@ class CreateTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'unique:todos'],
+            'title' => ['required'],
             'description' => ['required'],
             'user_id' => ['required'],
         ];
@@ -26,7 +26,6 @@ class CreateTodoRequest extends FormRequest
     {
         return [
             'title.required' => 'Digite um título',
-            'title.unique' => 'Já existe uma tarefa com este nome',
             'description.required' => 'Digite uma descrição',
             'user_id.required' => 'Digite seu ID de usuário'
         ];

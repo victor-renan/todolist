@@ -9,11 +9,7 @@ class UpdateTodoRequest extends TodoFormRequest
     public function rules(): array
     {
         return [
-            'title' => [
-                'nullable',
-                Rule::unique('todos')
-                    ->ignore($this->route('id'))
-            ],
+            'title' => ['nullable'],
             'description' => ['nullable'],
             'is_done' => ['nullable', 'boolean'],
         ];
@@ -22,7 +18,6 @@ class UpdateTodoRequest extends TodoFormRequest
     public function messages(): array
     {
         return [
-            'title.unique' => 'Já existe uma tarefa com este nome',
             'is_done.boolean' => 'O status de finalizado só pode ser verdadeiro ou falso'
         ];
     }

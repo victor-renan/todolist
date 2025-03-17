@@ -168,21 +168,6 @@ class TodoControllerTest extends TestCase
         );
     }
 
-    public function test_update_todo_invalid(): void
-    {
-        $todo = Todo::latest()->first();
-
-        $newTodo = Todo::factory()->create([
-            'title' => 'NewTodo',
-        ]);
-
-        $response = $this->patchJson("/api/todos/$todo->id", [
-            'title' => $newTodo->title,
-        ]);
-
-        $response->assertStatus(422);
-    }
-
     public function test_delete_todo(): void
     {
         $todo = Todo::factory()->create();

@@ -4,6 +4,8 @@ Sistema para gerenciamento de tarefas com Laravel e Vue.js
 
 ### Requerimentos
 
+#### Versões
+
 ```
 PHP >= 8.3
 Laravel >= 12.0
@@ -11,36 +13,40 @@ MySQL >= 15.0
 Node.js >= 18.0
 ```
 
+#### Extensões do PHP
+
+```
+gd
+dom
+fileinfo
+pdo_mysql
+mysqli
+pdo_sqlite
+sqlite3
+```
+
 ## Executando localmente
 
-Entre na pasta `/backend` e copie o conteúdo do arquivo `.env.example` para um novo arquivo chamado `.env`. Tudo isso pode ser feito usando o seguinte comando:
+Clone este repositório, entre na pasta `/backend` e copie o conteúdo do arquivo `.env.example` para um novo arquivo chamado `.env`. Isso pode ser feito usando o seguinte comando:
 
 ### Backend
 
 ```bash
+git clone https://github.com/victor-renan/todolist && cd todolist
 cd backend
 cp .env.example .env
 ```
 
-Crie um banco de dados no **MySQL** e coloque suas credenciais de usuário, nome do banco, host e porta no arquivo `.env`.
+Em seguida, crie um banco de dados no **MySQL**, ou use um já existente, colocando suas credenciais de usuário, nome do banco, host e porta no arquivo `.env`.
 
 ```
 ...
 
-# Host
-DB_HOST=127.0.0.1
-
-# Porta
-DB_PORT=3306
-
-# Nome do Banco
-DB_DATABASE=laravel
-
-# Usuário
-DB_USERNAME=root
-
-# Senha
-DB_PASSWORD=password 
+DB_HOST=<host>
+DB_PORT=<porta>
+DB_DATABASE=<nome_do_banco>
+DB_USERNAME=<usuário>
+DB_PASSWORD=<senha>
 
 ...
 ```
@@ -48,24 +54,32 @@ DB_PASSWORD=password
 > [!WARNING]
 > O usuário precisa ter as devidas permissões para acessar ao banco.
 
+Agora, execute o composer para instalar as dependências do projeto:
+
+```bash
+composer update
+```
+
 Em seguida, é necessário executar as migrações do Laravel no banco configurado. Para isso, execute o seguinte comando:
 
 ```bash
 php artisan migrate
 ```
 
-Depois, basta servir a API com o seguinte comando:
+Depois, basta executar o comando abaixo e a API será exposta, geralmente em http://127.0.0.1:8000:
 
 ```bash
 php artisan serve
 ```
+> [!INFO]
+> Se a porta 8000 já estiver sendo usada, será usada a 8001 e assim por diante
 
 ### Frontend
 
-Semelhantemente, é necessário entrar na pasta `/frontend` e copiar a `.env.example`. Estando ainda no diretório `/backend`, execute o comando abaixo para entrar na pasta e fazer a cópia:
+Minimizando o terminal do backend, crie um novo terminal na pasta raiz do repositório. Depois, entre na pasta `/frontend` e copie o conteúdo de `.env.example` para `.env`. Para isso, execute o comando abaixo:
 
 ```bash
-cd ../frontend
+cd frontend
 cp .env.example .env
 ```
 
@@ -75,10 +89,21 @@ Copie o link da API gerado no comando `artisan serve` e cole na variável `VITE_
 VITE_BACKEND_URL = "http://localhost:8000/api"
 ```
 
-Depois execute o comando para rodar o frontend:
+Depois basta instalar as dependências e executar o comando para rodar o frontend:
 
 ```
+npm install
 npm run dev
 ```
 
-Por fim, basta abrir o link do frontend no seu navegador de preferência.
+Por fim, basta abrir o link do frontend, geralmente http://localhost:5173, no seu navegador de preferência.
+
+### Informações Adicionais
+
+Se você não quer criar todos as tarefas manualmente para testar, depois de ter registrado um usuário, entre na pasta `/backend` com outro terminal e rode o comando:
+
+```bash
+php artisan db:seed
+```
+
+Isso gerará um conjunto de tarefas para o usuário recém-criado.
